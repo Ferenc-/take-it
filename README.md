@@ -33,12 +33,17 @@ Ticket URL:
 
 ##### Ubuntu, Debian
 ````bash
-sudo apt install python3-selenium`
+sudo apt install python3-selenium
 ````
 
 #### RHEL, Fedora
 ````bash
 sudo dnf install python3-selenium
+````
+
+#### openSUSE Thumbleweed
+````bash
+sudo zypper in python310-selenium
 ````
 
 #### pip
