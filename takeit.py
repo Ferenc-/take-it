@@ -31,6 +31,7 @@ class ZendeskAuto:
             WebDriverWait(self.driver, timeout).until(element_present)
         except TimeoutException:
             print("Timed out waiting for login page to load")
+            raise
 
         email_password_iframe = self.driver.find_element(By.XPATH, "//iframe")
         email_password_iframe.send_keys(self.e_mail)
@@ -43,6 +44,7 @@ class ZendeskAuto:
             WebDriverWait(self.driver, timeout).until(element_present)
         except TimeoutException:
             print("Timed out waiting for Zendesk dashboard page to load")
+            raise
 
     def navigate_to_ticket(self):
         self.driver.get(self.ticket_url)
@@ -56,6 +58,7 @@ class ZendeskAuto:
             WebDriverWait(self.driver, timeout).until(element_present)
         except TimeoutException:
             print("Timed out waiting for take-it button to appear")
+            raise
 
         take_it_button = self.driver.find_element(
             By.XPATH, '//button[@data-test-id="assignee-field-take-it-button"]'
