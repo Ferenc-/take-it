@@ -3,7 +3,10 @@
 # SPDX-License-Identifier: MIT
 
 import getpass
+import logging
 import os
+import sys
+
 from urllib.parse import urlparse
 
 from selenium import webdriver
@@ -30,7 +33,7 @@ class ZendeskAuto:
             element_present = EC.visibility_of_element_located((By.XPATH, "//iframe"))
             WebDriverWait(self.driver, timeout).until(element_present)
         except TimeoutException:
-            print("Timed out waiting for login page to load")
+            logging.error("Timed out waiting for login page to load")
             raise
 
         email_password_iframe = self.driver.find_element(By.XPATH, "//iframe")
@@ -43,7 +46,7 @@ class ZendeskAuto:
             element_present = EC.title_is("Zendesk...")
             WebDriverWait(self.driver, timeout).until(element_present)
         except TimeoutException:
-            print("Timed out waiting for Zendesk dashboard page to load")
+            logging.error("Timed out waiting for Zendesk dashboard page to load")
             raise
 
     def navigate_to_ticket(self):
@@ -57,7 +60,7 @@ class ZendeskAuto:
             )
             WebDriverWait(self.driver, timeout).until(element_present)
         except TimeoutException:
-            print("Timed out waiting for take-it button to appear")
+            logging.error("Timed out waiting for take-it button to appear")
             raise
 
         take_it_button = self.driver.find_element(
@@ -107,7 +110,8 @@ if __name__ == "__main__":
         zd.navigate_to_ticket()
         zd.take_it_and_submit()
     except Exception as e:
-        if hasattr(e, "message"):
-            print(e.message)
+        if hasattr(e, "message") and e.message:
+            logging.error(e.message)
         else:
-            print(e)
+            logging.error(e)
+        sys.exit(255)
