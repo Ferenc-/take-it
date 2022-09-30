@@ -28,7 +28,7 @@ class ZendeskAuto:
 
     def login(self):
         self.driver.get(self.base_url + "/access/normal")
-        timeout = 10
+        timeout = 120
         try:
             element_present = EC.visibility_of_element_located((By.XPATH, "//iframe"))
             WebDriverWait(self.driver, timeout).until(element_present)
@@ -54,7 +54,7 @@ class ZendeskAuto:
 
     def take_it_and_submit(self):
         try:
-            timeout = 5
+            timeout = 120
             element_present = EC.presence_of_element_located(
                 (By.XPATH, '//button[@data-test-id="assignee-field-take-it-button"]')
             )
